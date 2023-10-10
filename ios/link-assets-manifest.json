@@ -2,12 +2,24 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/Nunito-Bold.ttf",
+      "sha1": "dea5eec0aca2aef62e3bfc625cf95f9d45b59687"
+    },
+    {
       "path": "assets/fonts/Nunito_Regular.ttf",
       "sha1": "4b7236ba666cb77f00d8cb2a17696cc0dc2b2cc9"
     },
     {
+      "path": "assets/fonts/Poppins-Bold.ttf",
+      "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
+    },
+    {
       "path": "assets/fonts/Poppins_Regular.ttf",
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "assets/fonts/Raleway-Bold.ttf",
+      "sha1": "fd799b6fb4aff1a9402e071ab02d1ddea731b868"
     },
     {
       "path": "assets/fonts/Raleway_Regular.ttf",

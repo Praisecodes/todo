@@ -17,6 +17,9 @@
 		B78C949BA07C40A0A7ABDC3A /* Nunito_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F97BFE4138C04E42A054F443 /* Nunito_Regular.ttf */; };
 		E1882B8A0FE449CEAE3D5A1F /* Poppins_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1056DC1DE45D4375BD46281C /* Poppins_Regular.ttf */; };
 		40364280140C49E3BE52EB5E /* Raleway_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A1DA44337F7400FAE165043 /* Raleway_Regular.ttf */; };
+		B7BD63C01474407DAAB33927 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99260ECE5FBF4D919AB9C784 /* Nunito-Bold.ttf */; };
+		DD24BABDB5604E0BA46AF6D5 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 484499EBE0274D7384503D58 /* Poppins-Bold.ttf */; };
+		5D49FE33B39C4876A7FC9B3A /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A4CE3B1988649979317B4E1 /* Raleway-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,9 @@
 		F97BFE4138C04E42A054F443 /* Nunito_Regular.ttf */ = {isa = PBXFileReference; name = "Nunito_Regular.ttf"; path = "../assets/fonts/Nunito_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1056DC1DE45D4375BD46281C /* Poppins_Regular.ttf */ = {isa = PBXFileReference; name = "Poppins_Regular.ttf"; path = "../assets/fonts/Poppins_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		4A1DA44337F7400FAE165043 /* Raleway_Regular.ttf */ = {isa = PBXFileReference; name = "Raleway_Regular.ttf"; path = "../assets/fonts/Raleway_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		99260ECE5FBF4D919AB9C784 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; name = "Nunito-Bold.ttf"; path = "../assets/fonts/Nunito-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		484499EBE0274D7384503D58 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7A4CE3B1988649979317B4E1 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; name = "Raleway-Bold.ttf"; path = "../assets/fonts/Raleway-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +167,9 @@
 				F97BFE4138C04E42A054F443 /* Nunito_Regular.ttf */,
 				1056DC1DE45D4375BD46281C /* Poppins_Regular.ttf */,
 				4A1DA44337F7400FAE165043 /* Raleway_Regular.ttf */,
+				99260ECE5FBF4D919AB9C784 /* Nunito-Bold.ttf */,
+				484499EBE0274D7384503D58 /* Poppins-Bold.ttf */,
+				7A4CE3B1988649979317B4E1 /* Raleway-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -265,6 +274,9 @@
 				B78C949BA07C40A0A7ABDC3A /* Nunito_Regular.ttf in Resources */,
 				E1882B8A0FE449CEAE3D5A1F /* Poppins_Regular.ttf in Resources */,
 				40364280140C49E3BE52EB5E /* Raleway_Regular.ttf in Resources */,
+				B7BD63C01474407DAAB33927 /* Nunito-Bold.ttf in Resources */,
+				DD24BABDB5604E0BA46AF6D5 /* Poppins-Bold.ttf in Resources */,
+				5D49FE33B39C4876A7FC9B3A /* Raleway-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
