@@ -11,7 +11,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
 
-  const [date, setDate] = useState(new Date())
+  // const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
 
   const handleAddTodo = () => {
@@ -35,16 +35,6 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         />
 
-        {/* <TextInput
-          placeholder="Enter Todo Date"
-          value={todoInfo?.dateDue}
-          
-          onChangeText={(e: any) => {
-            setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: e }))
-          }}
-          style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
-        /> */}
-
         <TouchableWithoutFeedback onPress={() => { setOpen(!open) }}>
           <Text style={[tw`border border-white rounded-md py-4 text-base px-4 w-[100%] text-white`]}>
             {(todoInfo?.dateDue == new Date()) ? "Choose Date For Todo" : todoInfo?.dateDue.toDateString()}
@@ -61,7 +51,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       <DatePicker
         modal
         open={open}
-        date={date}
+        date={todoInfo?.dateDue}
         onConfirm={(date) => {
           setOpen(false)
           setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: date }))
