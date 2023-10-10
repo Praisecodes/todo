@@ -54,7 +54,8 @@ function App(): JSX.Element {
       const val = await AsyncStorage.getItem('todos');
 
       if (val !== null) {
-        updateTodo(JSON.parse(val))
+        console.log(val);
+        // updateTodo(JSON.parse(val))
       }
     } catch (error) {
       console.error(error);
