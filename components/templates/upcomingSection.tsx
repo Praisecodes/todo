@@ -7,7 +7,7 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
   const todoList = useTodoStore((state: any) => state.todos);
 
   return (
-    <View style={[tw`w-[100%] mt-9 gap-6`]}>
+    <View style={[tw`w-[100%] mt-9 gap-9`]}>
       <View style={[tw`flex flex-row justify-between items-center`]}>
         <Text style={[tw`text-white text-2xl`, { fontFamily: "Raleway-Bold" }]}>
           Upcoming
