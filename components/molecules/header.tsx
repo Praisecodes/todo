@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { Text, View } from "react-native";
 import tw from 'twrnc';
+import { userStore } from "../../zustand/AppStore";
 
 const Header = (): React.ReactNode => {
-  const [firstName, setFirstName] = useState<string>("Joseph");
+  const firstName = userStore((state) => state.firstName);
 
   return (
     <View style={tw`py-3 flex flex-row items-center`}>
