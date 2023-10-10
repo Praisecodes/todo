@@ -24,7 +24,7 @@ const ReminderSection = (): React.ReactNode => {
         {/**Small drop down on the top */}
         <TouchableWithoutFeedback onPress={() => { }}>
           <View style={[tw`flex flex-row items-center gap-1 mt-5`]}>
-            <Text style={[tw`text-sm text-white`, { fontFamily: "Raleway-Bold" }]}>
+            <Text style={[tw`text-base text-white`, { fontFamily: "Raleway-Bold" }]}>
               {`${monthToAbbr(new Date().getMonth())}, ${new Date().getFullYear()}`}
             </Text>
             <Image
