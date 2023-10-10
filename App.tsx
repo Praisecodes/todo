@@ -43,7 +43,7 @@ function App(): JSX.Element {
       const val = await AsyncStorage.getItem('todos');
 
       if (val !== null) {
-        updateTodo(JSON.parse(val))
+        updateTodo(val)
       }
     } catch (error) {
       console.error(error);
