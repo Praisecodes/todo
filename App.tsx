@@ -10,7 +10,6 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  Text,
   View,
 } from 'react-native';
 import tw from 'twrnc';

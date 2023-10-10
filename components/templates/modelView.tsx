@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const [todoInfo, setTodoInfo] = useState<any>({
@@ -10,12 +11,22 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "dateDue": new Date(),
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
+  const todos = useTodoStore((state: any) => state.todos);
 
   // const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+
+  const updateStorage = useCallback(async ()=>{
+    try {
+      await AsyncStorage.setItem("todos", JSON.stringify(todos));
+    } catch (error) {
+      console.error(error);
+    }
+  }, [todos]);
 
   const handleAddTodo = () => {
     addTodo?.(todoInfo);
+    updateStorage();
     bottomSheetRef.current.close();
   }
 
