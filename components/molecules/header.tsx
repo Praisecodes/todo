@@ -8,7 +8,7 @@ const Header = (): React.ReactNode => {
   return (
     <View style={tw`py-3 flex flex-row items-center`}>
       <View style={tw`bg-[#D9D9D9] w-[5rem] h-[5rem] rounded-full`}></View>
-      <Text style={[tw`text-white text-xl mx-4`, { fontFamily: "Raleway_Regular" }]}>
+      <Text style={[tw`text-white text-xl mx-4`, { fontFamily: "Raleway-Bold" }]}>
         Hello, {firstName}!
       </Text>
     </View>
