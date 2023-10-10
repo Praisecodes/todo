@@ -1,3 +1,6 @@
 import ReminderSection from "./reminderSection";
+import UpcomingSection from "./upcomingSection";
+import AddTodoModal from "./addTodoModal";
+import ModelView from "./modelView";
 
-export { ReminderSection };
+export { ReminderSection, UpcomingSection, AddTodoModal, ModelView };
