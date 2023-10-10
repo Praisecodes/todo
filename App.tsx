@@ -18,12 +18,16 @@ import { FilterButton } from './components/atoms';
 import { ModelView, ReminderSection, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTodoStore } from './zustand/AppStore';
 
 function App(): JSX.Element {
   const [selected, setSelected] = useState<string>("done");
   const [done, setDone] = useState<boolean>(true);
   const [unDone, setUnDone] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const clearTodo = useTodoStore((state:any) => state.clearTodo);
+  const updateTodo = useTodoStore((state:any) => state.updateTodo);
 
   const snapPoints = useMemo(() => [2, "45%"], []);
 
@@ -31,8 +35,22 @@ function App(): JSX.Element {
     setSelected(value);
   }
 
+  const updateTodos = async () => {
+    clearTodo();
+    try {
+      const val = await AsyncStorage.getItem('todos');
+
+      if (val !== null) {
+        updateTodo(JSON.parse(val))
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     bottomSheetRef.current?.close();
+    updateTodos();
   }, [])
 
   useEffect(() => {

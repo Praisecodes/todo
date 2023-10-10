@@ -16,17 +16,21 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   // const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false);
 
-  const updateStorage = useCallback(async ()=>{
+  // const updateStorage = useCallback(async ()=>{
+  //   try {
+  //     await AsyncStorage.setItem("todos", JSON.stringify(todos));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [todos]);
+
+  const handleAddTodo = async () => {
+    addTodo?.(todoInfo);
     try {
       await AsyncStorage.setItem("todos", JSON.stringify(todos));
     } catch (error) {
       console.error(error);
     }
-  }, [todos]);
-
-  const handleAddTodo = () => {
-    addTodo?.(todoInfo);
-    updateStorage();
     bottomSheetRef.current.close();
   }
 
