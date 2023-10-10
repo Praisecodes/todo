@@ -27,7 +27,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const handleAddTodo = async () => {
     addTodo?.(todoInfo);
     try {
-      await AsyncStorage.setItem("todos", todos);
+      await AsyncStorage.setItem("todos", JSON.stringify(todos));
       console.log(todos);
     } catch (error) {
       console.error(error);

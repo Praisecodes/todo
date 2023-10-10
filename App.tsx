@@ -36,14 +36,25 @@ function App(): JSX.Element {
     setSelected(value);
   }
 
+  const clearStorage = async () => {
+    // if (todos.length > 0) return;
+
+    try {
+      const val = await AsyncStorage.clear();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const updateTodos = async () => {
+    // clearStorage();
     if (todos.length > 0) return;
 
     try {
       const val = await AsyncStorage.getItem('todos');
 
       if (val !== null) {
-        updateTodo(val)
+        updateTodo(JSON.parse(val))
       }
     } catch (error) {
       console.error(error);
