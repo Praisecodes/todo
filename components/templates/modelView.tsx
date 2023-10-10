@@ -45,9 +45,9 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         /> */}
 
-        <TouchableWithoutFeedback onPress={()=>{setOpen(!open)}}>
+        <TouchableWithoutFeedback onPress={() => { setOpen(!open) }}>
           <Text style={[tw`border border-white rounded-md py-4 text-base px-4 w-[100%] text-white`]}>
-            {(date == new Date())? "Choose Date For Todo" : date.toDateString()}
+            {(todoInfo?.dateDue == new Date()) ? "Choose Date For Todo" : todoInfo?.dateDue.toDateString()}
           </Text>
         </TouchableWithoutFeedback>
 
@@ -64,7 +64,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
         date={date}
         onConfirm={(date) => {
           setOpen(false)
-          setDate(date)
+          setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: date }))
         }}
         onCancel={() => {
           setOpen(false)
