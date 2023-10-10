@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from "twrnc";
+import { userStore } from "../../zustand/AppStore";
 
 const ReminderSection = (): React.ReactNode => {
   const [todo, setTodo] = useState<string>("To Go To The Bank");
+  const firstName = userStore((state) => state.firstName);
 
   const monthToAbbr = (month: number): string => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -47,11 +49,11 @@ const ReminderSection = (): React.ReactNode => {
         </View>
 
         <View style={[tw`flex-1 px-4 gap-6`]}>
-          <Text style={[tw`text-[#C3BCBC] text-lg`, {fontFamily: "Raleway-Bold"}]}>
-            Today Joseph, you have "<Text style={[tw`text-white`]}>{todo}</Text>"
+          <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
+            Today {firstName}, you have "<Text style={[tw`text-white`]}>{todo}</Text>"
           </Text>
 
-          <Text style={[tw`text-sm text-white`, {fontFamily: "Raleway-Bold"}]}>
+          <Text style={[tw`text-sm text-white`, { fontFamily: "Raleway-Bold" }]}>
             {`${new Date().toDateString().split(" ")[0]}, ${monthToAbbr(new Date().getMonth())}, ${new Date().getFullYear()}`}
           </Text>
         </View>
