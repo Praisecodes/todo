@@ -56,7 +56,7 @@ function App(): JSX.Element {
         />
         <Header />
 
-        <ScrollView contentContainerStyle={[tw`py-2 w-[100%]`]}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[tw`py-2 w-[100%]`]}>
           <View>
             <View style={[tw`flex gap-3 flex-row w-[100%] py-2`]}>
               <FilterButton focus={done} onPress={() => { changeSelected("done") }}>
