@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  Text,
   View,
 } from 'react-native';
 import tw from 'twrnc';
@@ -73,8 +74,12 @@ function App(): JSX.Element {
 
       </SafeAreaView>
 
-      <BottomSheet ref={bottomSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
-        <View></View>
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={bottomSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
+        <View style={[tw`flex-1 px-5 py-3`]}>
+          <Text style={[tw`text-white text-2xl`, {fontFamily: "Raleway-Bold"}]}>
+            Add Todo
+          </Text>
+        </View>
       </BottomSheet>
     </GestureHandlerRootView>
   );
