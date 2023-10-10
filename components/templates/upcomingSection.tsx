@@ -1,6 +1,7 @@
 import { Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
+import { TodoCard } from "../molecules";
 
 const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const todoList = useTodoStore((state: any) => state.todos);
@@ -17,8 +18,10 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
         </TouchableWithoutFeedback>
       </View>
 
-      <View>
-
+      <View style={[tw`gap-5`]}>
+        {todoList.map((todo:any, index:any)=>(
+          <TodoCard todo={todo} key={index} />
+        ))}
       </View>
     </View>
   )

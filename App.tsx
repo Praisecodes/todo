@@ -16,7 +16,7 @@ import {
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
-import { ReminderSection, UpcomingSection } from './components/templates';
+import { ModelView, ReminderSection, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
 
@@ -26,15 +26,15 @@ function App(): JSX.Element {
   const [unDone, setUnDone] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(()=>[2, "60%"],[]);
+  const snapPoints = useMemo(() => [2, "45%"], []);
 
   const changeSelected = (value: string) => {
     setSelected(value);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     bottomSheetRef.current?.close();
-  },[])
+  }, [])
 
   useEffect(() => {
     if (selected == "done") {
@@ -56,7 +56,7 @@ function App(): JSX.Element {
         />
         <Header />
 
-        <ScrollView contentContainerStyle={[tw`py-2 w-[100%]`]}>
+        <ScrollView scrollEnabled contentContainerStyle={[tw`py-2 w-[100%]`]}>
           <View style={[tw`flex gap-3 flex-row w-[100%] py-2`]}>
             <FilterButton focus={done} onPress={() => { changeSelected("done") }}>
               Done To-Do's
@@ -75,10 +75,8 @@ function App(): JSX.Element {
       </SafeAreaView>
 
       <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={bottomSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
-        <View style={[tw`flex-1 px-5 py-3`]}>
-          <Text style={[tw`text-white text-2xl`, {fontFamily: "Raleway-Bold"}]}>
-            Add Todo
-          </Text>
+        <View style={[tw`flex-1 px-5 py-3 gap-10`]}>
+          <ModelView bottomSheetRef={bottomSheetRef} />
         </View>
       </BottomSheet>
     </GestureHandlerRootView>
