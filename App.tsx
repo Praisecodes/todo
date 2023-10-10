@@ -15,7 +15,7 @@ import {
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
-import { ReminderSection } from './components/templates';
+import { ReminderSection, UpcomingSection } from './components/templates';
 
 function App(): JSX.Element {
   const [selected, setSelected] = useState<string>("done");
@@ -58,6 +58,7 @@ function App(): JSX.Element {
 
         <ReminderSection />
 
+        <UpcomingSection />
       </ScrollView>
 
     </SafeAreaView>

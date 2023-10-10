@@ -5,7 +5,7 @@ export const userStore = create(() => ({
   lastName: "Chikwado",
 }));
 
-export const todoStore = create((set) => ({
+export const useTodoStore = create((set) => ({
   todos: [],
   addTodo: () => set((state: any) => ({})),
   removeTodo: () => set((state: any) => ({}))
