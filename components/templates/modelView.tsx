@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
@@ -13,27 +13,29 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const addTodo = useTodoStore((state: any) => state.addTodo);
   const todos = useTodoStore((state: any) => state.todos);
 
-  // const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false);
-
-  // const updateStorage = useCallback(async ()=>{
-  //   try {
-  //     await AsyncStorage.setItem("todos", JSON.stringify(todos));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [todos]);
 
   const handleAddTodo = async () => {
     addTodo?.(todoInfo);
+    
+    bottomSheetRef.current.close();
+  }
+
+  const updateStorage = async() => {
+    if(todos.length < 1) return;
+    
     try {
-      await AsyncStorage.setItem("todos", todos);
+      await AsyncStorage.setItem("todos", JSON.stringify(todos));
       // console.log(todos);
     } catch (error) {
       console.error(error);
     }
-    bottomSheetRef.current.close();
   }
+
+  useEffect(()=>{
+    console.log("this ran");
+    updateStorage();
+  },[todos]);
 
   return (
     <>

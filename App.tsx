@@ -26,7 +26,6 @@ function App(): JSX.Element {
   const [done, setDone] = useState<boolean>(true);
   const [unDone, setUnDone] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
-  // const clearTodo = useTodoStore((state: any) => state.clearTodo);
   const updateTodo = useTodoStore((state: any) => state.updateTodo);
   const todos = useTodoStore((state: any) => state.todos);
 
@@ -36,15 +35,15 @@ function App(): JSX.Element {
     setSelected(value);
   }
 
-  const clearStorage = async () => {
-    // if (todos.length > 0) return;
+  // const clearStorage = async () => {
+  //   // if (todos.length > 0) return;
 
-    try {
-      const val = await AsyncStorage.clear();
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //   try {
+  //     const val = await AsyncStorage.clear();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   const updateTodos = async () => {
     // clearStorage();
@@ -54,8 +53,8 @@ function App(): JSX.Element {
       const val = await AsyncStorage.getItem('todos');
 
       if (val !== null) {
-        console.log(val);
-        // updateTodo(JSON.parse(val))
+        // console.log(val);
+        updateTodo(JSON.parse(val))
       }
     } catch (error) {
       console.error(error);
