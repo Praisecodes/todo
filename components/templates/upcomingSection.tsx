@@ -2,7 +2,7 @@ import { Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 
-const UpcomingSection = (): React.ReactNode => {
+const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const todoList = useTodoStore((state: any) => state.todos);
 
   return (
@@ -12,7 +12,7 @@ const UpcomingSection = (): React.ReactNode => {
           Upcoming
         </Text>
 
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={()=>{bottomSheetRef.current.snapToIndex(1)}}>
           <Text style={[tw`text-white text-3xl px-[1.1rem] py-[0.5rem] text-center rounded-full bg-[#4F4F4F] text-white`]}>+</Text>
         </TouchableWithoutFeedback>
       </View>
