@@ -105,7 +105,7 @@ function App(): JSX.Element {
               </FilterButton>
 
               <FilterButton focus={unDone} onPress={() => { changeSelected("undone") }}>
-                Undone To-Do's
+                Upcoming To-Do's
               </FilterButton>
             </View>
 
