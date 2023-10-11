@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const [todoInfo, setTodoInfo] = useState<any>({
     "title": "",
-    "dateDue": new Date(),
+    "dateDue": "",
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
   const todos = useTodoStore((state: any) => state.todos);
@@ -17,13 +17,13 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
 
   const handleAddTodo = async () => {
     addTodo?.(todoInfo);
-    
+
     bottomSheetRef.current.close();
   }
 
-  const updateStorage = async() => {
-    if(todos.length < 1) return;
-    
+  const updateStorage = async () => {
+    if (todos.length < 1) return;
+
     try {
       await AsyncStorage.setItem("todos", JSON.stringify(todos));
       // console.log(todos);
@@ -32,10 +32,10 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("this ran");
     updateStorage();
-  },[todos]);
+  }, [todos]);
 
   return (
     <>
@@ -55,7 +55,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
 
         <TouchableWithoutFeedback onPress={() => { setOpen(!open) }}>
           <Text style={[tw`border border-white rounded-md py-4 text-base px-4 w-[100%] text-white`]}>
-            {(todoInfo?.dateDue == new Date()) ? "Choose Date For Todo" : todoInfo?.dateDue.toDateString()}
+            {todoInfo?.dateDue == "" ? "Choose Date For Todo" : todoInfo?.dateDue.toDateString()}
           </Text>
         </TouchableWithoutFeedback>
 
@@ -69,7 +69,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       <DatePicker
         modal
         open={open}
-        date={todoInfo?.dateDue}
+        date={new Date()}
         onConfirm={(date) => {
           setOpen(false)
           setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: date }))
