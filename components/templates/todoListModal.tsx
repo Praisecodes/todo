@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableWithoutFeedback, ScrollView } from "react-native";
+import { Text, View, TextInput, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 import React from "react";
@@ -19,7 +19,11 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
           {todos.map((todo: any, index: number) => (
             <TouchableWithoutFeedback key={index}>
               <View style={[tw`bg-[#414045] py-3 px-4 gap-5 rounded-xl flex flex-row items-center w-[100%]`]}>
-                {todo?.done ? <></>
+                {todo?.done ? 
+                  <Image 
+                    source={require('../../assets/icons/checked.png')}
+                    style={[tw`w-[24px] h-[24px]`]}
+                  />
                   :
                   <View style={[tw`bg-[#2C2B2B] w-[24px] h-[24px] rounded-sm`]}></View>
                 }
