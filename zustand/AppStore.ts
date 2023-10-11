@@ -9,6 +9,13 @@ export const useTodoStore = create((set) => ({
   todos: [],
   addTodo: (newTodo: any) => set((state: any) => ({ todos: [newTodo, ...state.todos] })),
   updateTodo: (todos: any) => set((state: any) => ({ todos: [...state.todos, ...todos] })),
-  removeTodo: (index: number) => set((state: any) => { state.todos.splice(index, 1) }),
+  removeTodo: (index: number) => set((state: any) => {
+    const todoArr = [...state.todos];
+
+    todoArr.splice(index, 1);
+    return ({
+      todos: [...todoArr]
+    })
+  }),
   clearTodo: () => set((state: any) => ({ todos: [] })),
 }));
