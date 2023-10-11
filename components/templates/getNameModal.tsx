@@ -26,7 +26,7 @@ const GetNameModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bott
         </TouchableWithoutFeedback> */}
 
         <TouchableWithoutFeedback onPress={() => { }}>
-          <Text style={[tw`text-center w-[100%] bg-[#7089EE] text-lg text-white py-3 rounded-md`, { fontFamily: "Raleway-Bold" }]}>
+          <Text style={[tw`text-center w-[100%] bg-[#0760B2] text-lg text-white py-3 rounded-md`, { fontFamily: "Raleway-Bold" }]}>
             Confirm
           </Text>
         </TouchableWithoutFeedback>

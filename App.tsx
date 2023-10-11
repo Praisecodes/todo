@@ -15,9 +15,9 @@ import {
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
-import { GetNameModal, ModelView, ReminderSection, UpcomingSection } from './components/templates';
+import { GetNameModal, ModelView, ReminderSection, TodoListModal, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTodoStore } from './zustand/AppStore';
 
@@ -90,7 +90,7 @@ function App(): JSX.Element {
               </FilterButton>
             </View>
 
-            <ReminderSection />
+            <ReminderSection allTodoSheetRef={allTodoSheetRef} />
 
             <UpcomingSection bottomSheetRef={bottomSheetRef} />
           </View>
@@ -103,9 +103,9 @@ function App(): JSX.Element {
         </View>
       </BottomSheet>
 
-      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
-        <View style={[tw`flex-1 px-5 py-3 gap-10`]}>
-          <ModelView bottomSheetRef={bottomSheetRef} />
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef}  snapPoints={[2, "65%"]} index={1}>
+        <View style={[tw`flex-1 px-5 py-3 gap-8`]}>
+          <TodoListModal bottomSheetRef={allTodoSheetRef} />
         </View>
       </BottomSheet>
 
