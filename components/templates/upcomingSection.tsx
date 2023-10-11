@@ -13,13 +13,17 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
           Upcoming
         </Text>
 
-        <TouchableWithoutFeedback onPress={()=>{bottomSheetRef.current.snapToIndex(1)}}>
-          <Text style={[tw`text-white text-4xl px-[1rem] py-[0.4rem] text-center rounded-full bg-[#4F4F4F] text-white`, {fontFamily: "Nunito-Bold"}]}>+</Text>
+        <TouchableWithoutFeedback onPress={() => { bottomSheetRef.current.snapToIndex(1) }}>
+          <View style={[tw`flex flex-col items-center justify-center w-[3rem] h-[3rem] rounded-full bg-[#4F4F4F]`]}>
+            <Text style={[tw`text-white p-0 text-4xl`, { fontFamily: "Nunito-Bold" }]}>
+              +
+            </Text>
+          </View>
         </TouchableWithoutFeedback>
       </View>
 
       <View style={[tw`gap-5`]}>
-        {todoList.map((todo:any, index:any)=>(
+        {todoList.map((todo: any, index: any) => (
           <TodoCard todo={todo} key={index} />
         ))}
       </View>
