@@ -60,9 +60,20 @@ const ReminderSection = (): React.ReactNode => {
         </View>
 
         <View style={[tw`flex-1 px-4 gap-7`]}>
-          <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
-            Today {firstName}, you have <Text style={[tw`text-white`]}>{(todo.length < 1) ? "No Tasks" : `"${(todo.join(", ")).length > 29 ?(todo.join(", ")).substring(0,29)+"..." :todo.join(", ") }"`}</Text>
-          </Text>
+          <TouchableWithoutFeedback onPress={()=>{console.log("Open List Of Todos")}}>
+            <View style={[tw`relative`]}>
+              <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
+                Today {firstName}, you have <Text style={[tw`text-white`]}>{(todo.length < 1) ? "No Tasks" : `"${(todo.join(", ")).length > 29 ? (todo.join(", ")).substring(0, 29) + "..." : todo.join(", ")}"`}</Text>
+              </Text>
+
+              <Image
+                source={require('../../assets/icons/link.png')}
+                width={10}
+                height={10}
+                style={[tw`w-[15px] h-[15px] opacity-70 absolute top-0 right-0`]}
+              />
+            </View>
+          </TouchableWithoutFeedback>
 
           <Text style={[tw`text-base text-white`, { fontFamily: "Raleway-Bold" }]}>
             {`${new Date().toDateString().split(" ")[0]}, ${monthToAbbr(new Date().getMonth())}, ${new Date().getFullYear()}`}
