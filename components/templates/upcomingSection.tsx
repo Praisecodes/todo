@@ -24,7 +24,7 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
 
       <View style={[tw`gap-5`]}>
         {todoList.map((todo: any, index: any) => (
-          <TodoCard todo={todo} key={index} />
+          <TodoCard todo={todo} index={index} key={index} />
         ))}
       </View>
     </View>
