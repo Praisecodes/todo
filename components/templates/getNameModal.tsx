@@ -1,9 +1,27 @@
 import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
-import React from "react";
+import React, { useState } from "react";
 import { View, TouchableWithoutFeedback, Text, TextInput } from "react-native";
 import tw from "twrnc";
+import { userStore } from "../../zustand/AppStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const GetNameModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<BottomSheetMethods>; }): React.ReactNode => {
+  const changeName = userStore((state: any) => state.changeFullName);
+  const [text, setText] = useState<string>("");
+
+  const saveName = async () => {
+    if(text == "") return;
+    
+    try {
+      await AsyncStorage.setItem("name", text);
+    } catch (error) {
+      console.error(error);
+    }
+
+    changeName(text);
+    bottomSheetRef.current?.close();
+  }
+
   return (
     <>
       <Text style={[tw`text-white text-2xl`, { fontFamily: "Raleway-Bold" }]}>
@@ -13,8 +31,9 @@ const GetNameModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bott
       <View style={[tw`gap-6`]}>
         <TextInput
           placeholder="What's Your Name?"
-          value={""}
+          value={text}
           onChangeText={(e: string) => {
+            setText(e);
           }}
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         />
@@ -25,7 +44,7 @@ const GetNameModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bott
           </Text>
         </TouchableWithoutFeedback> */}
 
-        <TouchableWithoutFeedback onPress={() => { }}>
+        <TouchableWithoutFeedback onPress={() => { saveName() }}>
           <Text style={[tw`text-center w-[100%] bg-[#0760B2] text-lg text-white py-3 rounded-md`, { fontFamily: "Raleway-Bold" }]}>
             Confirm
           </Text>

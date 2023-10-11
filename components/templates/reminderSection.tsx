@@ -6,7 +6,7 @@ import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 
 const ReminderSection = ({ allTodoSheetRef }: { allTodoSheetRef: React.RefObject<BottomSheetMethods> }): React.ReactNode => {
   const [todo, setTodo] = useState<string[]>([]);
-  const firstName = userStore((state) => state.firstName);
+  const firstName = userStore((state:any) => state.fullName.split(" ")[0]);
 
   const todos = useTodoStore((state: any) => state.todos);
 

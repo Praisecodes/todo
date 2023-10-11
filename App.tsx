@@ -19,7 +19,7 @@ import { GetNameModal, ModelView, ReminderSection, TodoListModal, UpcomingSectio
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTodoStore } from './zustand/AppStore';
+import { useTodoStore, userStore } from './zustand/AppStore';
 
 function App(): JSX.Element {
   const [selected, setSelected] = useState<string>("done");
@@ -30,8 +30,11 @@ function App(): JSX.Element {
   const getNameSheetRef = useRef<BottomSheet>(null);
   const updateTodo = useTodoStore((state: any) => state.updateTodo);
   const todos = useTodoStore((state: any) => state.todos);
+  const changeName = userStore((state:any)=>state.changeFullName);
+  const [name, setName] = useState<any>();
 
   const snapPoints = useMemo(() => [2, "45%"], []);
+  const getnameSnapPoints = useMemo(() => [2, "95%"], []);
 
   const changeSelected = (value: string) => {
     setSelected(value);
@@ -53,8 +56,24 @@ function App(): JSX.Element {
     }
   }
 
+  const getName = async () => {
+    try {
+      let value = await AsyncStorage.getItem("name");
+
+      if(value !== null){
+        changeName(value);
+        setName(value);
+        return;
+      }
+
+      setName(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
-    bottomSheetRef.current?.close();
+    getName();
     updateTodos();
   }, [])
 
@@ -103,15 +122,15 @@ function App(): JSX.Element {
         </View>
       </BottomSheet>
 
-      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef}  snapPoints={[2, "65%"]} index={1}>
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef}  snapPoints={[2, "65%"]} index={-1}>
         <View style={[tw`flex-1 px-5 py-3 gap-8`]}>
           <TodoListModal bottomSheetRef={allTodoSheetRef} />
         </View>
       </BottomSheet>
 
-      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={getNameSheetRef} enablePanDownToClose snapPoints={[2, "37%"]} index={-1}>
-        <View style={[tw`flex-1 px-5 py-3 gap-10`]}>
-          <GetNameModal bottomSheetRef={bottomSheetRef} />
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={getNameSheetRef} snapPoints={getnameSnapPoints} index={name==null ? 1 : -1}>
+        <View style={[tw`flex-1 px-5 py-10 gap-10`]}>
+          <GetNameModal bottomSheetRef={getNameSheetRef} />
         </View>
       </BottomSheet>
     </GestureHandlerRootView>
