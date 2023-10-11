@@ -9,12 +9,12 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
   return (
     <View style={[tw`w-[100%] mt-9 gap-9`]}>
       <View style={[tw`flex flex-row justify-between items-center`]}>
-        <Text style={[tw`text-white text-2xl`, { fontFamily: "Raleway-Bold" }]}>
+        <Text style={[tw`text-white text-3xl`, { fontFamily: "Raleway-Bold" }]}>
           Upcoming
         </Text>
 
         <TouchableWithoutFeedback onPress={()=>{bottomSheetRef.current.snapToIndex(1)}}>
-          <Text style={[tw`text-white text-3xl px-[1.1rem] py-[0.5rem] text-center rounded-full bg-[#4F4F4F] text-white`]}>+</Text>
+          <Text style={[tw`text-white text-4xl px-[1rem] py-[0.4rem] text-center rounded-full bg-[#4F4F4F] text-white`, {fontFamily: "Nunito-Bold"}]}>+</Text>
         </TouchableWithoutFeedback>
       </View>
 

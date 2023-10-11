@@ -24,13 +24,13 @@ const ReminderSection = (): React.ReactNode => {
         {/**Small drop down on the top */}
         <TouchableWithoutFeedback onPress={() => { }}>
           <View style={[tw`flex flex-row items-center gap-1 mt-5`]}>
-            <Text style={[tw`text-sm text-white`, { fontFamily: "Raleway-Bold" }]}>
+            <Text style={[tw`text-base text-white`, { fontFamily: "Raleway-Bold" }]}>
               {`${monthToAbbr(new Date().getMonth())}, ${new Date().getFullYear()}`}
             </Text>
             <Image
               source={require('../../assets/icons/angle-down.png')}
               alt="Angle Down"
-              style={[tw`w-[7px] h-[4px]`]}
+              style={[tw`w-[6px] h-[4px]`]}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -38,22 +38,22 @@ const ReminderSection = (): React.ReactNode => {
 
       {/**Main Reminder Section */}
       <View style={[tw`flex flex-row gap-6 items-start`]}>
-        <View style={[tw`gap-10`]}>
+        <View style={[tw`gap-6`]}>
           <Text style={[tw`text-[#FFFFFFBA] text-base`, { fontFamily: "Raleway-Bold" }]}>
             Reminder
           </Text>
 
-          <Text style={[tw`text-6xl pt-2 text-white`, { fontFamily: "Poppins-Bold" }]}>
+          <Text style={[tw`text-[5rem] text-white`, { fontFamily: "Poppins-Bold" }]}>
             {new Date().getDate()}
           </Text>
         </View>
 
-        <View style={[tw`flex-1 px-4 gap-6`]}>
+        <View style={[tw`flex-1 px-4 gap-8`]}>
           <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
             Today {firstName}, you have "<Text style={[tw`text-white`]}>{todo}</Text>"
           </Text>
 
-          <Text style={[tw`text-sm text-white`, { fontFamily: "Raleway-Bold" }]}>
+          <Text style={[tw`text-base text-white`, { fontFamily: "Raleway-Bold" }]}>
             {`${new Date().toDateString().split(" ")[0]}, ${monthToAbbr(new Date().getMonth())}, ${new Date().getFullYear()}`}
           </Text>
         </View>

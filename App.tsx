@@ -10,7 +10,6 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  Text,
   View,
 } from 'react-native';
 import tw from 'twrnc';
@@ -19,12 +18,16 @@ import { FilterButton } from './components/atoms';
 import { ModelView, ReminderSection, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTodoStore } from './zustand/AppStore';
 
 function App(): JSX.Element {
   const [selected, setSelected] = useState<string>("done");
   const [done, setDone] = useState<boolean>(true);
   const [unDone, setUnDone] = useState<boolean>(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const updateTodo = useTodoStore((state: any) => state.updateTodo);
+  const todos = useTodoStore((state: any) => state.todos);
 
   const snapPoints = useMemo(() => [2, "45%"], []);
 
@@ -32,8 +35,35 @@ function App(): JSX.Element {
     setSelected(value);
   }
 
+  // const clearStorage = async () => {
+  //   // if (todos.length > 0) return;
+
+  //   try {
+  //     const val = await AsyncStorage.clear();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  const updateTodos = async () => {
+    // clearStorage();
+    if (todos.length > 0) return;
+
+    try {
+      const val = await AsyncStorage.getItem('todos');
+
+      if (val !== null) {
+        // console.log(val);
+        updateTodo(JSON.parse(val))
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     bottomSheetRef.current?.close();
+    updateTodos();
   }, [])
 
   useEffect(() => {
@@ -56,7 +86,7 @@ function App(): JSX.Element {
         />
         <Header />
 
-        <ScrollView contentContainerStyle={[tw`py-2 w-[100%]`]}>
+        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[tw`py-2 w-[100%]`]}>
           <View>
             <View style={[tw`flex gap-3 flex-row w-[100%] py-2`]}>
               <FilterButton focus={done} onPress={() => { changeSelected("done") }}>
