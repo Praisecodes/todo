@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Image, Text, TouchableWithoutFeedback, View } from "react-native";
 import tw from "twrnc";
 import { useTodoStore, userStore } from "../../zustand/AppStore";
+import { BottomSheetMethods } from "@gorhom/bottom-sheet/lib/typescript/types";
 
-const ReminderSection = (): React.ReactNode => {
+const ReminderSection = ({ allTodoSheetRef }: { allTodoSheetRef: React.RefObject<BottomSheetMethods> }): React.ReactNode => {
   const [todo, setTodo] = useState<string[]>([]);
-  const firstName = userStore((state) => state.firstName);
+  const firstName = userStore((state:any) => state.fullName.split(" ")[0]);
 
   const todos = useTodoStore((state: any) => state.todos);
 
@@ -60,7 +61,7 @@ const ReminderSection = (): React.ReactNode => {
         </View>
 
         <View style={[tw`flex-1 px-4 gap-7`]}>
-          <TouchableWithoutFeedback onPress={()=>{console.log("Open List Of Todos")}}>
+          <TouchableWithoutFeedback onPress={() => { allTodoSheetRef.current?.snapToIndex(1) }}>
             <View style={[tw`relative`]}>
               <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
                 Today {firstName}, you have <Text style={[tw`text-white`]}>{(todo.length < 1) ? "No Tasks" : `"${(todo.join(", ")).length > 29 ? (todo.join(", ")).substring(0, 29) + "..." : todo.join(", ")}"`}</Text>

@@ -60,7 +60,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={() => { handleAddTodo(); }}>
-          <Text style={[tw`text-center w-[100%] bg-[#7089EE] text-lg text-white py-3 rounded-md`, { fontFamily: "Raleway-Bold" }]}>
+          <Text style={[tw`text-center w-[100%] bg-[#0760B2] text-lg text-white py-3 rounded-md`, { fontFamily: "Raleway-Bold" }]}>
             Add Todo
           </Text>
         </TouchableWithoutFeedback>

@@ -3,8 +3,7 @@ import tw from "twrnc";
 import { userStore } from "../../zustand/AppStore";
 
 const TodoCard = ({ todo }: { todo: any; }): React.ReactNode => {
-  const firstName = userStore((state) => state.firstName);
-  const lastName = userStore((state) => state.lastName);
+  const fullName = userStore((state:any) => state.fullName);
 
   return (
     <View style={[tw`w-[100%] bg-[#2C2B2B] p-4 rounded-2xl gap-7`]}>
@@ -18,7 +17,7 @@ const TodoCard = ({ todo }: { todo: any; }): React.ReactNode => {
       </View>
 
       <Text style={[tw`text-base text-[#CABEBE]`, {fontFamily: "Raleway_Regular"}]}>
-        For: <Text style={[tw`text-white`, {fontFamily: "Raleway-Bold"}]}>{`${firstName} ${lastName}`}</Text>
+        For: <Text style={[tw`text-white`, {fontFamily: "Raleway-Bold"}]}>{`${fullName}`}</Text>
       </Text>
     </View>
   )
