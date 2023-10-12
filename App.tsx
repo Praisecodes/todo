@@ -30,7 +30,7 @@ function App(): JSX.Element {
   const getNameSheetRef = useRef<BottomSheet>(null);
   const updateTodo = useTodoStore((state: any) => state.updateTodo);
   const todos = useTodoStore((state: any) => state.todos);
-  const changeName = userStore((state:any)=>state.changeFullName);
+  const changeName = userStore((state: any) => state.changeFullName);
   const [name, setName] = useState<any>();
 
   const snapPoints = useMemo(() => [2, "45%"], []);
@@ -41,8 +41,7 @@ function App(): JSX.Element {
   }
 
   const updateTodos = async () => {
-    // clearStorage();
-    if (todos.length > 0) return;
+    // if (todos.length > 0) return;
 
     try {
       const val = await AsyncStorage.getItem('todos');
@@ -60,13 +59,24 @@ function App(): JSX.Element {
     try {
       let value = await AsyncStorage.getItem("name");
 
-      if(value !== null){
+      if (value !== null) {
         changeName(value);
         setName(value);
         return;
       }
 
       setName(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const updateStorage = async () => {
+    // if (todos.length < 1) return;
+
+    try {
+      await AsyncStorage.setItem("todos", JSON.stringify(todos));
+      console.log(todos);
     } catch (error) {
       console.error(error);
     }
@@ -122,13 +132,13 @@ function App(): JSX.Element {
         </View>
       </BottomSheet>
 
-      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef}  snapPoints={[2, "65%"]} index={-1}>
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={allTodoSheetRef} snapPoints={[2, "65%"]} index={-1}>
         <View style={[tw`flex-1 px-5 py-3 gap-8`]}>
           <TodoListModal bottomSheetRef={allTodoSheetRef} />
         </View>
       </BottomSheet>
 
-      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={getNameSheetRef} snapPoints={getnameSnapPoints} index={name==null ? 1 : -1}>
+      <BottomSheet backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={getNameSheetRef} snapPoints={getnameSnapPoints} index={name == null ? 1 : -1}>
         <View style={[tw`flex-1 px-5 py-10 gap-10`]}>
           <GetNameModal bottomSheetRef={getNameSheetRef} />
         </View>

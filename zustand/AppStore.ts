@@ -8,14 +8,14 @@ export const userStore = create((set) => ({
 export const useTodoStore = create((set) => ({
   todos: [],
   addTodo: (newTodo: any) => set((state: any) => ({ todos: [newTodo, ...state.todos] })),
-  updateTodo: (todos: any) => set((state: any) => ({ todos: [...state.todos, ...todos] })),
+  updateTodo: (todos: any) => set((state: any) => ({ todos: [...todos] })),
   removeTodo: (index: number) => set((state: any) => {
     if(state.todos.length <= 1){
       return ({
         todos: []
       });
     }
-    
+
     const todoArr = [...state.todos];
 
     todoArr.splice(index, 1);
