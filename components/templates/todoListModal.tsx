@@ -7,6 +7,12 @@ import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<BottomSheetMethods> }): React.ReactNode => {
   const todos = useTodoStore((state: any) => state.todos);
+  const updateTodoStatus = useTodoStore((state: any) => state.updateTodoStatus);
+
+  const handlePress = (todo: any, index: number) => {
+    let status = todo.done ? false : true;
+    updateTodoStatus(status, index);
+  }
 
   return (
     <>
@@ -17,10 +23,10 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
       <BottomSheetScrollView>
         <View style={[tw`gap-6`]}>
           {todos.map((todo: any, index: number) => (
-            <TouchableWithoutFeedback key={index}>
+            <TouchableWithoutFeedback key={index} onPress={() => { handlePress(todo, index) }}>
               <View style={[tw`bg-[#414045] py-3 px-4 gap-5 rounded-xl flex flex-row items-center w-[100%]`]}>
-                {todo?.done ? 
-                  <Image 
+                {todo?.done ?
+                  <Image
                     source={require('../../assets/icons/checked.png')}
                     style={[tw`w-[24px] h-[24px]`]}
                   />
