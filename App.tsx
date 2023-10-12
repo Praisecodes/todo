@@ -11,6 +11,8 @@ import {
   ScrollView,
   StatusBar,
   View,
+  TouchableWithoutFeedback,
+  Text,
 } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
@@ -103,7 +105,7 @@ function App(): JSX.Element {
   }, [selected]);
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={[tw`relative`]}>
       <SafeAreaView style={tw`bg-[#414045] px-4 h-[100%]`}>
         <StatusBar
           barStyle={'light-content'}
@@ -129,6 +131,14 @@ function App(): JSX.Element {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      <TouchableWithoutFeedback onPress={() => { bottomSheetRef.current?.snapToIndex(1) }}>
+        <View style={[tw`flex flex-row absolute bottom-5 right-3 items-center justify-center w-[5rem] h-[5rem] rounded-full bg-[#0760B2]`]}>
+          <Text style={[tw`text-white text-3xl`, { fontFamily: "Nunito-Bold" }]}>
+            +
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
 
       <BottomSheet keyboardBehavior='extend' backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={bottomSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
         <View style={[tw`flex-1 px-5 py-3 gap-10`]}>
