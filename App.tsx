@@ -6,6 +6,7 @@
  */
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import {
   SafeAreaView,
   ScrollView,
@@ -89,6 +90,7 @@ function App(): JSX.Element {
   }, [todos])
 
   useEffect(() => {
+    SplashScreen.hide();
     getName();
     updateTodos();
   }, [])
