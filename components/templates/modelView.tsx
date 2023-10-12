@@ -11,31 +11,14 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "dateDue": "",
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
-  const todos = useTodoStore((state: any) => state.todos);
+  // const todos = useTodoStore((state: any) => state.todos);
 
   const [open, setOpen] = useState(false);
 
   const handleAddTodo = async () => {
     addTodo?.(todoInfo);
-
     bottomSheetRef.current.close();
   }
-
-  const updateStorage = async () => {
-    if (todos.length < 1) return;
-
-    try {
-      await AsyncStorage.setItem("todos", JSON.stringify(todos));
-      // console.log(todos);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    console.log("this ran");
-    updateStorage();
-  }, [todos]);
 
   return (
     <>

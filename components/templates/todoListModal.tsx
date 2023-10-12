@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableWithoutFeedback, ScrollView } from "react-native";
+import { Text, View, TextInput, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 import React from "react";
@@ -7,6 +7,12 @@ import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<BottomSheetMethods> }): React.ReactNode => {
   const todos = useTodoStore((state: any) => state.todos);
+  const updateTodoStatus = useTodoStore((state: any) => state.updateTodoStatus);
+
+  const handlePress = (todo: any, index: number) => {
+    let status = todo.done ? false : true;
+    updateTodoStatus(status, index);
+  }
 
   return (
     <>
@@ -17,9 +23,13 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
       <BottomSheetScrollView>
         <View style={[tw`gap-6`]}>
           {todos.map((todo: any, index: number) => (
-            <TouchableWithoutFeedback key={index}>
+            <TouchableWithoutFeedback key={index} onPress={() => { handlePress(todo, index) }}>
               <View style={[tw`bg-[#414045] py-3 px-4 gap-5 rounded-xl flex flex-row items-center w-[100%]`]}>
-                {todo?.done ? <></>
+                {todo?.done ?
+                  <Image
+                    source={require('../../assets/icons/checked.png')}
+                    style={[tw`w-[24px] h-[24px]`]}
+                  />
                   :
                   <View style={[tw`bg-[#2C2B2B] w-[24px] h-[24px] rounded-sm`]}></View>
                 }

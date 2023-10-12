@@ -11,7 +11,7 @@ const TodoCard = ({ todo, index }: { todo: any; index: number; }): React.ReactNo
       <TouchableWithoutFeedback onPress={() => { console.log("remove task" + index); removeTodo(index); }}>
         <Image
           source={require('../../assets/icons/trash.png')}
-          style={[tw`absolute top-[10px] right-[17px] w-[18px] h-[20px]`]}
+          style={[tw`absolute top-[10px] right-[17px] w-[18px] h-[20px]`, {zIndex: 1000}]}
         />
       </TouchableWithoutFeedback>
 
