@@ -16,7 +16,15 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const [open, setOpen] = useState(false);
 
   const handleAddTodo = async () => {
+    if(todoInfo.title == "" || todoInfo.dateDue == ""){
+      return;
+    }
+
     addTodo?.(todoInfo);
+    setTodoInfo({
+      "title": "",
+      "dateDue": "",
+    });
     bottomSheetRef.current.close();
   }
 
