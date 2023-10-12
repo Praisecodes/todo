@@ -19,7 +19,7 @@ import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
 import { GetNameModal, ModelView, ReminderSection, TodoListModal, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTodoStore, userStore } from './zustand/AppStore';
 
@@ -133,7 +133,7 @@ function App(): JSX.Element {
       </SafeAreaView>
 
       <TouchableWithoutFeedback onPress={() => { bottomSheetRef.current?.snapToIndex(1) }}>
-        <View style={[tw`flex flex-row absolute bottom-5 right-3 items-center justify-center w-[5rem] h-[5rem] rounded-full bg-[#0760B2]`]}>
+        <View style={[tw`flex flex-row absolute bottom-5 right-3 items-center justify-center w-[4.5rem] h-[4.5rem] rounded-full bg-[#0760B2]`]}>
           <Text style={[tw`text-white text-3xl`, { fontFamily: "Nunito-Bold" }]}>
             +
           </Text>

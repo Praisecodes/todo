@@ -1,9 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const [todoInfo, setTodoInfo] = useState<any>({
@@ -11,7 +10,6 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "dateDue": "",
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
-  // const todos = useTodoStore((state: any) => state.todos);
 
   const [open, setOpen] = useState(false);
 
