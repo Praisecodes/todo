@@ -1,4 +1,4 @@
-import { Text, TouchableWithoutFeedback, View } from "react-native";
+import { Text, TouchableWithoutFeedback, View, Image } from "react-native";
 import tw from "twrnc";
 import { useTodoStore } from "../../zustand/AppStore";
 import { TodoCard } from "../molecules";
@@ -13,12 +13,11 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
           Upcoming
         </Text>
 
-        <TouchableWithoutFeedback onPress={() => { bottomSheetRef.current.snapToIndex(1) }}>
-          <View style={[tw`flex flex-col items-center justify-center w-[3rem] h-[3rem] rounded-full bg-[#4F4F4F]`]}>
-            <Text style={[tw`text-white p-0 text-4xl`, { fontFamily: "Nunito-Bold" }]}>
-              +
-            </Text>
-          </View>
+        <TouchableWithoutFeedback onPress={() => {  }}>
+          <Image 
+            source={require("../../assets/icons/filter.png")}
+            style={[tw`w-[13px] h-[17px]`]}
+          />
         </TouchableWithoutFeedback>
       </View>
 

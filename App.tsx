@@ -6,18 +6,21 @@
  */
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   View,
+  TouchableWithoutFeedback,
+  Text,
 } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
 import { GetNameModal, ModelView, ReminderSection, TodoListModal, UpcomingSection } from './components/templates';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTodoStore, userStore } from './zustand/AppStore';
 
@@ -87,6 +90,7 @@ function App(): JSX.Element {
   }, [todos])
 
   useEffect(() => {
+    SplashScreen.hide();
     getName();
     updateTodos();
   }, [])
@@ -103,7 +107,7 @@ function App(): JSX.Element {
   }, [selected]);
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={[tw`relative`]}>
       <SafeAreaView style={tw`bg-[#414045] px-4 h-[100%]`}>
         <StatusBar
           barStyle={'light-content'}
@@ -129,6 +133,14 @@ function App(): JSX.Element {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      <TouchableWithoutFeedback onPress={() => { bottomSheetRef.current?.snapToIndex(1) }}>
+        <View style={[tw`flex flex-row absolute bottom-5 right-3 items-center justify-center w-[4.5rem] h-[4.5rem] rounded-full bg-[#0760B2]`]}>
+          <Text style={[tw`text-white text-3xl`, { fontFamily: "Nunito-Bold" }]}>
+            +
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
 
       <BottomSheet keyboardBehavior='extend' backgroundStyle={[tw`bg-[#2C2B2B] rounded-t-3xl`]} ref={bottomSheetRef} enablePanDownToClose snapPoints={snapPoints} index={-1}>
         <View style={[tw`flex-1 px-5 py-3 gap-10`]}>
