@@ -1,6 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 
+const updateTheStorage = async (arr: any[]) => {
+  try {
+    await AsyncStorage.setItem("todos", JSON.stringify(arr))
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const userStore = create((set) => ({
   fullName: "",
   changeFullName: (name: string) => set(() => ({ fullName: name })),
@@ -15,12 +23,12 @@ export const useTodoStore = create((set) => ({
 
     todoArr.splice(index, 1);
 
-    // try {
-    //   await AsyncStorage.setItem("todos", JSON.stringify(todoArr));
-    // } catch (error) {
-    //   console.error(error);
-    //   return;
-    // }
+    try {
+      updateTheStorage(todoArr);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
 
     return ({
       todos: [...todoArr]
