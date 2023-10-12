@@ -41,7 +41,7 @@ function App(): JSX.Element {
   }
 
   const updateTodos = async () => {
-    // if (todos.length > 0) return;
+    if (todos.length > 0) return;
 
     try {
       const val = await AsyncStorage.getItem('todos');
@@ -72,15 +72,19 @@ function App(): JSX.Element {
   }
 
   const updateStorage = async () => {
-    // if (todos.length < 1) return;
+    if (todos.length < 1) return;
 
     try {
       await AsyncStorage.setItem("todos", JSON.stringify(todos));
-      console.log(todos);
+      // console.log(todos);
     } catch (error) {
       console.error(error);
     }
   }
+
+  useEffect(() => {
+    updateStorage();
+  }, [todos])
 
   useEffect(() => {
     getName();
