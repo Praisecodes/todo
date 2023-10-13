@@ -16,44 +16,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCategoryStore, useTodoStore, userStore } from './zustand/AppStore';
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification, { Importance } from 'react-native-push-notification';
-
-PushNotification.configure({
-  // onRegister: (token) => {
-  //   console.log("TOKEN: ", token);
-  // },
-
-  onNotification: (notification) => {
-    console.log("NOTIFICATION: ", notification);
-
-    // some more code here
-    if(notification.foreground){
-      // Alert.alert(notification.message);
-      console.log(notification);
-    }
-
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-
-  onAction: (notification) => {
-    console.log("ACTION: ", notification.action);
-  },
-
-  onRegistrationError: (err) => {
-    console.error(err.message, err);
-  },
-
-  requestPermissions: true,
-})
-
-PushNotification.createChannel(
-  {
-    channelId: "channel-id",
-    channelName: "My channel",
-    importance: Importance.HIGH
-  }, (created:boolean)=>null
-)
 
 function App(): JSX.Element {
   const category = useCategoryStore((state: any) => state.category);
@@ -68,6 +31,16 @@ function App(): JSX.Element {
 
   const snapPoints = useMemo(() => [2, "45%"], []);
   const getnameSnapPoints = useMemo(() => [2, "95%"], []);
+
+  const configureChannel = () => {
+    PushNotification.createChannel(
+      {
+        channelId: "channel-id",
+        channelName: "My channel",
+        importance: Importance.HIGH
+      }, (created: boolean) => null
+    )
+  }
 
   // const changeSelected = (value: string) => {
   //   setSelected(value);
@@ -123,6 +96,7 @@ function App(): JSX.Element {
     SplashScreen.hide();
     getName();
     updateTodos();
+    configureChannel();
   }, [])
 
   return (
