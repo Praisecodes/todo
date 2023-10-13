@@ -108,7 +108,7 @@ function App(): JSX.Element {
 
   return (
     <GestureHandlerRootView style={[tw`relative`]}>
-      <SafeAreaView style={tw`bg-[#414045] px-4 h-[100%]`}>
+      <SafeAreaView style={tw`bg-[#414045] px-[4%] h-[100%]`}>
         <StatusBar
           barStyle={'light-content'}
           backgroundColor={"#414045"}
@@ -119,11 +119,11 @@ function App(): JSX.Element {
           <View>
             <View style={[tw`flex gap-3 flex-row w-[100%] py-2`]}>
               <FilterButton focus={done} onPress={() => { changeSelected("done") }}>
-                Done To-Do's
+                Upcoming To-Do's
               </FilterButton>
 
               <FilterButton focus={unDone} onPress={() => { changeSelected("undone") }}>
-                Upcoming To-Do's
+                Done To-Do's
               </FilterButton>
             </View>
 

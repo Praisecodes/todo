@@ -7,7 +7,7 @@ const TodoCard = ({ todo, index }: { todo: any; index: number; }): React.ReactNo
   const removeTodo = useTodoStore((state: any) => state.removeTodo);
 
   return (
-    <View style={[tw`w-[100%] relative bg-[#2C2B2B] p-4 rounded-2xl gap-7`]}>
+    <View style={[tw`w-[100%] relative bg-[#2C2B2B] p-4 rounded-2xl gap-5`]}>
       <TouchableWithoutFeedback onPress={() => { console.log("remove task" + index); removeTodo(index); }}>
         <Image
           source={require('../../assets/icons/trash.png')}
@@ -16,7 +16,7 @@ const TodoCard = ({ todo, index }: { todo: any; index: number; }): React.ReactNo
       </TouchableWithoutFeedback>
 
       <View>
-        <Text style={[tw`text-white text-xl`, { fontFamily: "Raleway-Bold" }]}>
+        <Text style={[tw`text-white text-lg pr-4`, { fontFamily: "Raleway-Bold" }]}>
           {todo?.title}
         </Text>
         <Text style={[tw`text-base text-[#A9A8A8]`, { fontFamily: "Raleway_Regular" }]}>
