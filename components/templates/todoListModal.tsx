@@ -24,7 +24,7 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
         <View style={[tw`gap-6`]}>
           {todos.map((todo: any, index: number) => (
             <TouchableWithoutFeedback key={index} onPress={() => { handlePress(todo, index) }}>
-              <View style={[tw`bg-[#414045] py-3 px-4 gap-5 rounded-xl flex flex-row items-center w-[100%]`]}>
+              <View style={[tw`bg-[#414045] py-3 px-4 gap-4 rounded-xl flex flex-row items-center w-[100%]`]}>
                 {todo?.done ?
                   <Image
                     source={require('../../assets/icons/checked.png')}
@@ -34,8 +34,8 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
                   <View style={[tw`bg-[#2C2B2B] w-[24px] h-[24px] rounded-sm`]}></View>
                 }
 
-                <View style={[tw`gap-2 w-[100%]`]}>
-                  <Text style={[tw`text-white pr-3 text-base`, { fontFamily: "Raleway-Bold" }]}>
+                <View style={[tw`gap-2 flex-1`]}>
+                  <Text style={[tw`text-white text-base`, { fontFamily: "Raleway-Bold" }]}>
                     {todo.title}
                   </Text>
 
