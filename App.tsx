@@ -7,14 +7,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  View,
-  TouchableWithoutFeedback,
-  Text,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
@@ -23,6 +16,32 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCategoryStore, useTodoStore, userStore } from './zustand/AppStore';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import PushNotification from 'react-native-push-notification';
+
+PushNotification.configure({
+  onRegister: (token)=>{
+    console.log("TOKEN: ",token);
+  },
+
+  onNotification: (notification) => {
+    console.log("NOTIFICATION: ", notification);
+
+    // some more code here
+
+    notification.finish(PushNotificationIOS.FetchResult.NoData);
+  },
+
+  onAction: (notification)=> {
+    console.log("ACTION: ", notification.action);
+  },
+
+  onRegistrationError: (err) => {
+    console.error(err.message, err);
+  },
+
+  requestPermissions: true,
+})
 
 function App(): JSX.Element {
   const category = useCategoryStore((state: any) => state.category);
