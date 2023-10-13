@@ -34,8 +34,8 @@ const TodoListModal = ({ bottomSheetRef }: { bottomSheetRef: React.RefObject<Bot
                   <View style={[tw`bg-[#2C2B2B] w-[24px] h-[24px] rounded-sm`]}></View>
                 }
 
-                <View style={[tw`gap-2`]}>
-                  <Text style={[tw`text-white text-base`, { fontFamily: "Raleway-Bold" }]}>
+                <View style={[tw`gap-2 w-[100%]`]}>
+                  <Text style={[tw`text-white pr-3 text-base`, { fontFamily: "Raleway-Bold" }]}>
                     {todo.title}
                   </Text>
 
