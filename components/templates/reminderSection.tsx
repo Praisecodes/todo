@@ -61,7 +61,7 @@ const ReminderSection = ({ allTodoSheetRef }: { allTodoSheetRef: React.RefObject
         </View>
 
         <View style={[tw`flex-1 px-4 gap-7`]}>
-          <TouchableWithoutFeedback onPress={() => { allTodoSheetRef.current?.snapToIndex(1) }}>
+          <TouchableWithoutFeedback onPress={() => { todos.length >= 1 && allTodoSheetRef.current?.snapToIndex(1) }}>
             <View style={[tw`relative`]}>
               <Text style={[tw`text-[#C3BCBC] text-lg`, { fontFamily: "Raleway-Bold" }]}>
                 Today {firstName}, you have <Text style={[tw`text-white`]}>{(todo.length < 1) ? "No Tasks" : `"${(todo.join(", ")).length > 29 ? (todo.join(", ")).substring(0, 29) + "..." : todo.join(", ")}"`}</Text>

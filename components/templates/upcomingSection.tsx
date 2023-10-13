@@ -13,12 +13,12 @@ const UpcomingSection = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.Re
           Upcoming
         </Text>
 
-        <TouchableWithoutFeedback onPress={() => {  }}>
+        {/* <TouchableWithoutFeedback onPress={() => {  }}>
           <Image 
             source={require("../../assets/icons/filter.png")}
             style={[tw`w-[13px] h-[17px]`]}
           />
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback> */}
       </View>
 
       <View style={[tw`gap-5`]}>
