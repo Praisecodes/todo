@@ -7,7 +7,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text, Alert } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
@@ -20,14 +20,18 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification, { Importance } from 'react-native-push-notification';
 
 PushNotification.configure({
-  onRegister: (token) => {
-    console.log("TOKEN: ", token);
-  },
+  // onRegister: (token) => {
+  //   console.log("TOKEN: ", token);
+  // },
 
   onNotification: (notification) => {
     console.log("NOTIFICATION: ", notification);
 
     // some more code here
+    if(notification.foreground){
+      // Alert.alert(notification.message);
+      console.log(notification);
+    }
 
     notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
@@ -48,8 +52,7 @@ PushNotification.createChannel(
     channelId: "channel-id",
     channelName: "My channel",
     importance: Importance.HIGH
-  },
-  (created) => console.log(`createChannel returned ${created}`)
+  }, (created:boolean)=>null
 )
 
 function App(): JSX.Element {

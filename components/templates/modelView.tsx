@@ -22,9 +22,9 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       ignoreInForeground: false,
     });
 
-    PushNotification.getChannels((channel_ids)=>{
-      console.log(channel_ids);
-    })
+    // PushNotification.getChannels((channel_ids)=>{
+    //   console.log(channel_ids);
+    // })
   }
 
   const handleAddTodo = async () => {

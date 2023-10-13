@@ -8,7 +8,7 @@ const TodoCard = ({ todo, index }: { todo: any; index: number; }): React.ReactNo
 
   return (
     <View style={[tw`w-[100%] relative bg-[#2C2B2B] p-4 rounded-2xl gap-5`]}>
-      <TouchableWithoutFeedback onPress={() => { console.log("remove task" + index); removeTodo(index); }}>
+      <TouchableWithoutFeedback onPress={() => { removeTodo(index); }}>
         <Image
           source={require('../../assets/icons/trash.png')}
           style={[tw`absolute top-[10px] right-[17px] w-[18px] h-[20px]`, {zIndex: 1000}]}
