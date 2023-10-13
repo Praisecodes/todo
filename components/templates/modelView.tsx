@@ -16,10 +16,9 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const sendNotification = (smallText: string, bigText:string | any) => {
     PushNotification.localNotification({
       channelId: "channel-id",
-      subText: smallText,
-      bigText: bigText,
-      message: bigText,
-      ignoreInForeground: false,
+      title: "Sucsess",
+      message: "You've Added A Task!",
+      bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
     });
 
     // PushNotification.getChannels((channel_ids)=>{
