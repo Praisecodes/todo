@@ -39,8 +39,13 @@ export const useTodoStore = create((set) => ({
     let todoArr = [...state.todos];
 
     todoArr[index].done = newStatus;
-    return({
+    return ({
       todos: [...todoArr]
     })
   }),
 }));
+
+export const useCategoryStore = create((set) => ({
+  category: "upcoming",
+  toggleCategory: (category:string) => set((state: any) => ({ category: category })),
+}))

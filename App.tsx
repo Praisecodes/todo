@@ -22,12 +22,11 @@ import { GetNameModal, ModelView, ReminderSection, TodoListModal, UpcomingSectio
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTodoStore, userStore } from './zustand/AppStore';
+import { useCategoryStore, useTodoStore, userStore } from './zustand/AppStore';
 
 function App(): JSX.Element {
-  const [selected, setSelected] = useState<string>("done");
-  const [done, setDone] = useState<boolean>(true);
-  const [unDone, setUnDone] = useState<boolean>(false);
+  const category = useCategoryStore((state: any) => state.category);
+  const toggleCategory = useCategoryStore((state: any) => state.toggleCategory);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const allTodoSheetRef = useRef<BottomSheet>(null);
   const getNameSheetRef = useRef<BottomSheet>(null);
@@ -39,9 +38,9 @@ function App(): JSX.Element {
   const snapPoints = useMemo(() => [2, "45%"], []);
   const getnameSnapPoints = useMemo(() => [2, "95%"], []);
 
-  const changeSelected = (value: string) => {
-    setSelected(value);
-  }
+  // const changeSelected = (value: string) => {
+  //   setSelected(value);
+  // }
 
   const updateTodos = async () => {
     if (todos.length > 0) return;
@@ -95,17 +94,6 @@ function App(): JSX.Element {
     updateTodos();
   }, [])
 
-  useEffect(() => {
-    if (selected == "done") {
-      setDone(true);
-      setUnDone(false);
-      return;
-    }
-
-    setDone(false);
-    setUnDone(true);
-  }, [selected]);
-
   return (
     <GestureHandlerRootView style={[tw`relative`]}>
       <SafeAreaView style={tw`bg-[#414045] px-[4%] h-[100%]`}>
@@ -118,11 +106,11 @@ function App(): JSX.Element {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[tw`py-2 w-[100%]`]}>
           <View>
             <View style={[tw`flex gap-3 flex-row w-[100%] py-2`]}>
-              <FilterButton focus={done} onPress={() => { changeSelected("done") }}>
+              <FilterButton focus={category == "upcoming"} onPress={() => { toggleCategory("upcoming") }}>
                 Upcoming To-Do's
               </FilterButton>
 
-              <FilterButton focus={unDone} onPress={() => { changeSelected("undone") }}>
+              <FilterButton focus={category == "done"} onPress={() => { toggleCategory("done") }}>
                 Done To-Do's
               </FilterButton>
             </View>
