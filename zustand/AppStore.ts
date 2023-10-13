@@ -36,6 +36,11 @@ export const useTodoStore = create((set) => ({
   }),
   clearTodo: () => set(() => ({ todos: [] })),
   updateTodoStatus: (newStatus: boolean, index: number) => set((state: any) => {
-    state.todos[index].done = newStatus;
+    let todoArr = [...state.todos];
+
+    todoArr[index].done = newStatus;
+    return({
+      todos: [...todoArr]
+    })
   }),
 }));
