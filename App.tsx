@@ -7,7 +7,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text, Alert, PermissionsAndroid } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
@@ -42,9 +42,28 @@ function App(): JSX.Element {
     )
   }
 
-  // const changeSelected = (value: string) => {
-  //   setSelected(value);
-  // }
+  const getNotificationsPermission = async () => {
+    if (await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS)) {
+      console.log("Can send push notifications");
+      return;
+    }
+
+    try {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,{
+        title: "To-Do App Notification Permission",
+        message: "To-Do App needs to be able to send you notifications to remind you of tasks you have.",
+        buttonPositive: "Grant Permission",
+        buttonNegative: "Deny Permission",
+      })
+
+      if(granted !== PermissionsAndroid.RESULTS.GRANTED){
+        console.log("Permission Denied");
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const updateTodos = async () => {
     if (todos.length > 0) return;
@@ -94,6 +113,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     SplashScreen.hide();
+    getNotificationsPermission();
     getName();
     updateTodos();
     configureChannel();
