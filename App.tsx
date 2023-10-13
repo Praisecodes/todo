@@ -17,11 +17,11 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCategoryStore, useTodoStore, userStore } from './zustand/AppStore';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
-import PushNotification from 'react-native-push-notification';
+import PushNotification, { Importance } from 'react-native-push-notification';
 
 PushNotification.configure({
-  onRegister: (token)=>{
-    console.log("TOKEN: ",token);
+  onRegister: (token) => {
+    console.log("TOKEN: ", token);
   },
 
   onNotification: (notification) => {
@@ -32,7 +32,7 @@ PushNotification.configure({
     notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
 
-  onAction: (notification)=> {
+  onAction: (notification) => {
     console.log("ACTION: ", notification.action);
   },
 
@@ -42,6 +42,15 @@ PushNotification.configure({
 
   requestPermissions: true,
 })
+
+PushNotification.createChannel(
+  {
+    channelId: "channel-id",
+    channelName: "My channel",
+    importance: Importance.HIGH
+  },
+  (created) => console.log(`createChannel returned ${created}`)
+)
 
 function App(): JSX.Element {
   const category = useCategoryStore((state: any) => state.category);
