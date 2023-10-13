@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
+import {AppRegistry, Platform} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import PushNotification from 'react-native-push-notification';
@@ -19,15 +19,19 @@ PushNotification.configure({
     notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
 
-  onAction: (notification) => {
-    console.log("ACTION: ", notification.action);
-  },
+  // onAction: (notification) => {
+  //   console.log("ACTION: ", notification.action);
+  // },
 
-  onRegistrationError: (err) => {
-    console.error(err.message, err);
-  },
+  // onRegistrationError: (err) => {
+  //   console.error(err.message, err);
+  // },
 
-  requestPermissions: true,
+  popInitialNotification: true,
+
+  // requestPermissions: true,
+  requestPermissions: Platform.OS === 'ios'
+
 })
 
 AppRegistry.registerComponent(appName, () => App);

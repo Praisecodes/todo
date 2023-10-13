@@ -13,21 +13,21 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const addTodo = useTodoStore((state: any) => state.addTodo);
   const [open, setOpen] = useState(false);
 
-  const sendNotification = (smallText: string, bigText:string | any) => {
-    PushNotification.localNotification({
-      channelId: "channel-id",
-      title: "Sucsess",
-      message: "You've Added A Task!",
-      // bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
-    });
+  const sendNotification = (smallText: string, bigText: string | any) => {
+    // PushNotification.localNotification({
+    //   channelId: "channel-id",
+    //   title: "Sucsess",
+    //   message: "You've Added A Task!",
+    //   // bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
+    // });
 
-    PushNotification.getChannels((channel_ids)=>{
+    PushNotification.getChannels((channel_ids) => {
       console.log(channel_ids);
     })
   }
 
   const handleAddTodo = async () => {
-    if(todoInfo.title == "" || todoInfo.dateDue == ""){
+    if (todoInfo.title == "" || todoInfo.dateDue == "") {
       return;
     }
 
@@ -35,6 +35,13 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     setTodoInfo({
       "title": "",
       "dateDue": "",
+    });
+    PushNotification.localNotificationSchedule({
+      channelId: "channel-id",
+      title: "Sucsess",
+      message: "You've Added A Task!",
+      date: new Date(Date.now() + 10 * 1000),
+      // bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
     });
     sendNotification("Success On Adding To-Do", `You've successfully added ${todoInfo.title} to your To-Do list!`);
     bottomSheetRef.current.close();
