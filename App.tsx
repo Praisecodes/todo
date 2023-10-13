@@ -7,14 +7,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  View,
-  TouchableWithoutFeedback,
-  Text,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, View, TouchableWithoutFeedback, Text, Alert, PermissionsAndroid } from 'react-native';
 import tw from 'twrnc';
 import { Header } from './components/molecules';
 import { FilterButton } from './components/atoms';
@@ -23,6 +16,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCategoryStore, useTodoStore, userStore } from './zustand/AppStore';
+import PushNotification, { Importance } from 'react-native-push-notification';
 
 function App(): JSX.Element {
   const category = useCategoryStore((state: any) => state.category);
@@ -38,9 +32,38 @@ function App(): JSX.Element {
   const snapPoints = useMemo(() => [2, "45%"], []);
   const getnameSnapPoints = useMemo(() => [2, "95%"], []);
 
-  // const changeSelected = (value: string) => {
-  //   setSelected(value);
-  // }
+  const configureChannel = () => {
+    PushNotification.createChannel(
+      {
+        channelId: "channel-id",
+        channelName: "My channel",
+        importance: Importance.HIGH
+      }, (created: boolean) => null
+    )
+  }
+
+  const getNotificationsPermission = async () => {
+    if (await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS)) {
+      console.log("Can send push notifications");
+      return;
+    }
+
+    try {
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,{
+        title: "To-Do App Notification Permission",
+        message: "To-Do App needs to be able to send you notifications to remind you of tasks you have.",
+        buttonPositive: "Grant Permission",
+        buttonNegative: "Deny Permission",
+      })
+
+      if(granted !== PermissionsAndroid.RESULTS.GRANTED){
+        console.log("Permission Denied");
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const updateTodos = async () => {
     if (todos.length > 0) return;
@@ -90,8 +113,10 @@ function App(): JSX.Element {
 
   useEffect(() => {
     SplashScreen.hide();
+    getNotificationsPermission();
     getName();
     updateTodos();
+    configureChannel();
   }, [])
 
   return (

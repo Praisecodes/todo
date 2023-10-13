@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
-import { useTodoStore } from "../../zustand/AppStore";
+import { useTodoStore, userStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
+import PushNotification from "react-native-push-notification";
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const [todoInfo, setTodoInfo] = useState<any>({
@@ -10,11 +11,24 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "dateDue": "",
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
-
+  const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
 
+  const sendNotification = (smallText: string, bigText: string | any) => {
+    PushNotification.localNotificationSchedule({
+      channelId: "channel-id",
+      title: `Hi there ${fullName}!`,
+      message: `You've Got A To-Do "${todoInfo.title}" Now!`,
+      date: new Date(todoInfo.dateDue),
+    });
+
+    PushNotification.getChannels((channel_ids) => {
+      console.log(channel_ids);
+    })
+  }
+
   const handleAddTodo = async () => {
-    if(todoInfo.title == "" || todoInfo.dateDue == ""){
+    if (todoInfo.title == "" || todoInfo.dateDue == "") {
       return;
     }
 
@@ -23,6 +37,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       "title": "",
       "dateDue": "",
     });
+    sendNotification("Success On Adding To-Do", `You've successfully added ${todoInfo.title} to your To-Do list!`);
     bottomSheetRef.current.close();
   }
 
