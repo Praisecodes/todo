@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
-import { useTodoStore } from "../../zustand/AppStore";
+import { useTodoStore, userStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
 import PushNotification from "react-native-push-notification";
 
@@ -11,15 +11,16 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "dateDue": "",
   });
   const addTodo = useTodoStore((state: any) => state.addTodo);
+  const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
 
   const sendNotification = (smallText: string, bigText: string | any) => {
-    // PushNotification.localNotification({
-    //   channelId: "channel-id",
-    //   title: "Sucsess",
-    //   message: "You've Added A Task!",
-    //   // bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
-    // });
+    PushNotification.localNotificationSchedule({
+      channelId: "channel-id",
+      title: `Hi there ${fullName}!`,
+      message: `You've Got A To-Do "${todoInfo.title}" Now!`,
+      date: new Date(todoInfo.dateDue),
+    });
 
     PushNotification.getChannels((channel_ids) => {
       console.log(channel_ids);
@@ -35,13 +36,6 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     setTodoInfo({
       "title": "",
       "dateDue": "",
-    });
-    PushNotification.localNotificationSchedule({
-      channelId: "channel-id",
-      title: "Sucsess",
-      message: "You've Added A Task!",
-      date: new Date(Date.now() + 10 * 1000),
-      // bigText: `You've successfully added ${todoInfo.title} to your list of To-Do's For ${new Date(todoInfo.dateDue).toISOString().split("T")[0]}`
     });
     sendNotification("Success On Adding To-Do", `You've successfully added ${todoInfo.title} to your To-Do list!`);
     bottomSheetRef.current.close();
