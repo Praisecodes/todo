@@ -4,6 +4,7 @@ import tw from "twrnc";
 import { useTodoStore, userStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
 import PushNotification from "react-native-push-notification";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const [todoInfo, setTodoInfo] = useState<any>({
@@ -41,6 +42,21 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     bottomSheetRef.current.close();
   }
 
+  const chooseDate = () => {
+    DateTimePickerAndroid.open({
+      value: new Date(),
+      onChange: (event, selectedDate)=>{
+        if(event.type == "dismissed"){
+          return;
+        }
+        setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: selectedDate }))
+        console.log(selectedDate, " Event=", event);
+      },
+      mode: "time",
+      is24Hour: true,
+    })
+  }
+
   return (
     <>
       <Text style={[tw`text-white text-2xl`, { fontFamily: "Raleway-Bold" }]}>
@@ -57,9 +73,9 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         />
 
-        <TouchableWithoutFeedback onPress={() => { setOpen(!open) }}>
+        <TouchableWithoutFeedback onPress={() => { chooseDate() }}>
           <Text style={[tw`border border-white rounded-md py-4 text-base px-4 w-[100%] text-white`]}>
-            {todoInfo?.dateDue == "" ? "Choose Date For Todo" : todoInfo?.dateDue.toDateString()}
+            {todoInfo?.dateDue == "" ? "Choose Time For Todo" : todoInfo?.dateDue.toISOString()}
           </Text>
         </TouchableWithoutFeedback>
 
