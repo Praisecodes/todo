@@ -90,7 +90,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
 
         <TouchableWithoutFeedback onPress={() => { chooseDate() }}>
           <Text style={[tw`border border-white rounded-md py-4 text-base px-4 w-[100%] text-white`]}>
-            {todoInfo?.dateDue == "" ? "Choose Time For Todo" : todoInfo?.dateDue.toISOString()}
+            {todoInfo?.dateDue == "" ? "Choose Time For Todo" : todoInfo?.dateDue.toLocaleString()}
           </Text>
         </TouchableWithoutFeedback>
 
