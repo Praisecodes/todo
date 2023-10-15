@@ -11,6 +11,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
     "title": "",
     "dateDue": "",
   });
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const addTodo = useTodoStore((state: any) => state.addTodo);
   const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
@@ -21,6 +22,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       title: `Hi there ${fullName}!`,
       message: `You've Got A To-Do "${todoInfo.title}" Now!`,
       date: new Date(todoInfo.dateDue),
+      allowWhileIdle: true,
     });
 
     PushNotification.getChannels((channel_ids) => {
@@ -45,14 +47,27 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   const chooseDate = () => {
     DateTimePickerAndroid.open({
       value: new Date(),
-      onChange: (event, selectedDate)=>{
-        if(event.type == "dismissed"){
+      mode: "date",
+      onChange: (event, selectedDate) => {
+        if (event.type == "dismissed") {
           return;
         }
-        setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: selectedDate }))
+        setDate(selectedDate);
+
+        DateTimePickerAndroid.open({
+          value: selectedDate,
+          onChange: (event, selectedTime) => {
+            if (event.type == "dismissed") {
+              return;
+            }
+            console.log(selectedTime);
+            setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: selectedTime }))
+          },
+          mode: "time",
+          is24Hour: true,
+        })
         console.log(selectedDate, " Event=", event);
       },
-      mode: "time",
       is24Hour: true,
     })
   }
