@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import PushNotification from "react-native-push-notification";
 import { create } from "zustand";
 
 const updateTheStorage = async (arr: any[]) => {
@@ -16,12 +17,16 @@ export const userStore = create((set) => ({
 
 export const useTodoStore = create((set) => ({
   todos: [],
-  addTodo: (newTodo: any) => set((state: any) => ({ todos: [newTodo, ...state.todos] })),
+  addTodo: (newTodo: any) => set((state: any) => ({ todos: [...state.todos, newTodo] })),
   updateTodo: (todos: any) => set((state: any) => ({ todos: [...state.todos, ...todos] })),
   removeTodo: (index: number) => set((state: any) => {
     const todoArr = [...state.todos];
+    console.log(index);
+
+    PushNotification.cancelLocalNotification(`${index}`)
 
     todoArr.splice(index, 1);
+    // delete todoArr[index];
 
     try {
       updateTheStorage(todoArr);
@@ -47,5 +52,5 @@ export const useTodoStore = create((set) => ({
 
 export const useCategoryStore = create((set) => ({
   category: "upcoming",
-  toggleCategory: (category:string) => set((state: any) => ({ category: category })),
+  toggleCategory: (category: string) => set((state: any) => ({ category: category })),
 }))

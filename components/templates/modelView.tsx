@@ -13,12 +13,14 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
   });
   const [date, setDate] = useState<Date | undefined>(new Date());
   const addTodo = useTodoStore((state: any) => state.addTodo);
+  const todos = useTodoStore((state: any) => state.todos);
   const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
 
   const sendNotification = (smallText: string, bigText: string | any) => {
     PushNotification.localNotificationSchedule({
       channelId: "channel-id",
+      id: `${todos.length}`,
       title: `Hi there ${fullName}!`,
       message: `You've Got A To-Do "${todoInfo.title}" Now!`,
       date: new Date(todoInfo.dateDue),
@@ -61,7 +63,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
               return;
             }
             console.log(selectedTime);
-            setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: selectedTime }))
+            setTodoInfo((todoInfo: any) => ({ ...todoInfo, dateDue: selectedTime }));
           },
           mode: "time",
           is24Hour: true,

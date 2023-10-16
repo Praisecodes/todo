@@ -37,7 +37,8 @@ function App(): JSX.Element {
       {
         channelId: "channel-id",
         channelName: "My channel",
-        importance: Importance.HIGH
+        importance: Importance.HIGH,
+        vibrate: true,
       }, (created: boolean) => null
     )
   }
@@ -111,7 +112,16 @@ function App(): JSX.Element {
     updateStorage();
   }, [todos])
 
+  // const clearStorage = async () => {
+  //   try {
+  //     await AsyncStorage.clear();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
   useEffect(() => {
+    // clearStorage();
     SplashScreen.hide();
     getNotificationsPermission();
     getName();
