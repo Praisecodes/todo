@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const addTodo = useTodoStore((state: any) => state.addTodo);
+  const todos = useTodoStore((state: any) => state.todos);
   const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
 
