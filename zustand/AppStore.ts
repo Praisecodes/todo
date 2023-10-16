@@ -21,9 +21,9 @@ export const useTodoStore = create((set) => ({
   updateTodo: (todos: any) => set((state: any) => ({ todos: [...state.todos, ...todos] })),
   removeTodo: (index: number) => set((state: any) => {
     const todoArr = [...state.todos];
-    console.log(index);
+    console.log(todoArr[index].todoId);
 
-    PushNotification.cancelLocalNotification(`${index}`)
+    PushNotification.cancelLocalNotification(`${todoArr[index].todoId}`)
 
     todoArr.splice(index, 1);
     // delete todoArr[index];

@@ -1,26 +1,30 @@
-import { useState } from "react";
+import { useState, useId } from "react";
 import { View, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import tw from "twrnc";
 import { useTodoStore, userStore } from "../../zustand/AppStore";
 import DatePicker from "react-native-date-picker";
 import PushNotification from "react-native-push-notification";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
+  const addTodo = useTodoStore((state: any) => state.addTodo);
+  // const todos = useTodoStore((state: any) => state.todos);
+  const fullName = userStore((state: any) => state.fullName);
+  const [open, setOpen] = useState(false);
+  // const [id, setId] = uuidv4();
+
   const [todoInfo, setTodoInfo] = useState<any>({
     "title": "",
     "dateDue": "",
+    "todoId": 0,
   });
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const addTodo = useTodoStore((state: any) => state.addTodo);
-  const todos = useTodoStore((state: any) => state.todos);
-  const fullName = userStore((state: any) => state.fullName);
-  const [open, setOpen] = useState(false);
 
-  const sendNotification = (smallText: string, bigText: string | any) => {
+  const sendNotification = () => {
     PushNotification.localNotificationSchedule({
+      // id: todoInfo.todoId,
       channelId: "channel-id",
-      id: `${todos.length}`,
       title: `Hi there ${fullName}!`,
       message: `You've Got A To-Do "${todoInfo.title}" Now!`,
       date: new Date(todoInfo.dateDue),
@@ -37,12 +41,14 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       return;
     }
 
+    console.log(uuidv4());
+
     addTodo?.(todoInfo);
     setTodoInfo({
       "title": "",
       "dateDue": "",
     });
-    sendNotification("Success On Adding To-Do", `You've successfully added ${todoInfo.title} to your To-Do list!`);
+    sendNotification();
     bottomSheetRef.current.close();
   }
 
@@ -54,7 +60,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
         if (event.type == "dismissed") {
           return;
         }
-        setDate(selectedDate);
+        // setDate(selectedDate);
 
         DateTimePickerAndroid.open({
           value: selectedDate,
@@ -85,7 +91,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
           placeholder="Enter Todo Title"
           value={todoInfo?.title}
           onChangeText={(e: string) => {
-            setTodoInfo((todoInfo: any) => ({ ...todoInfo, title: e }))
+            setTodoInfo((todoInfo: any) => ({ ...todoInfo, title: e, todoId: Math.floor(Math.random() * Math.floor(Math.random() * Date.now())) }))
           }}
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         />
