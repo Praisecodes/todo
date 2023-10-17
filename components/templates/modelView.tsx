@@ -27,7 +27,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
         title: `Hi there ${fullName}!`,
         message: `You've Got A To-Do "${todoInfo.title}" Now!`,
         date: new Date(todoInfo.dateDue),
-        id: todoInfo?.todoId,
+        // id: todoInfo?.todoId,
         allowWhileIdle: true,
       });
     } catch (error) {
