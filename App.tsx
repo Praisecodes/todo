@@ -37,7 +37,8 @@ function App(): JSX.Element {
       {
         channelId: "channel-id",
         channelName: "My channel",
-        importance: Importance.HIGH
+        importance: Importance.HIGH,
+        vibrate: true,
       }, (created: boolean) => null
     )
   }
