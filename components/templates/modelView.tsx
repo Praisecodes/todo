@@ -10,26 +10,28 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNode => {
   const addTodo = useTodoStore((state: any) => state.addTodo);
-  // const todos = useTodoStore((state: any) => state.todos);
   const fullName = userStore((state: any) => state.fullName);
   const [open, setOpen] = useState(false);
-  // const [id, setId] = uuidv4();
 
   const [todoInfo, setTodoInfo] = useState<any>({
     "title": "",
     "dateDue": "",
-    "todoId": 0,
+    "todoId": "",
   });
 
   const sendNotification = () => {
-    PushNotification.localNotificationSchedule({
-      // id: todoInfo.todoId,
-      channelId: "channel-id",
-      title: `Hi there ${fullName}!`,
-      message: `You've Got A To-Do "${todoInfo.title}" Now!`,
-      date: new Date(todoInfo.dateDue),
-      allowWhileIdle: true,
-    });
+    try {
+      PushNotification.localNotificationSchedule({
+        channelId: "channel-id",
+        title: `Hi there ${fullName}!`,
+        message: `You've Got A To-Do "${todoInfo.title}" Now!`,
+        date: new Date(todoInfo.dateDue),
+        id: todoInfo?.todoId,
+        allowWhileIdle: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     PushNotification.getChannels((channel_ids) => {
       console.log(channel_ids);
@@ -41,7 +43,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
       return;
     }
 
-    console.log(uuidv4());
+    console.log(typeof uuidv4());
 
     addTodo?.(todoInfo);
     setTodoInfo({
@@ -60,7 +62,6 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
         if (event.type == "dismissed") {
           return;
         }
-        // setDate(selectedDate);
 
         DateTimePickerAndroid.open({
           value: selectedDate,
@@ -91,7 +92,7 @@ const ModelView = ({ bottomSheetRef }: { bottomSheetRef: any; }): React.ReactNod
           placeholder="Enter Todo Title"
           value={todoInfo?.title}
           onChangeText={(e: string) => {
-            setTodoInfo((todoInfo: any) => ({ ...todoInfo, title: e, todoId: Math.floor(Math.random() * Math.floor(Math.random() * Date.now())) }))
+            setTodoInfo((todoInfo: any) => ({ ...todoInfo, title: e, todoId: uuidv4() }))
           }}
           style={[tw`w-[100%] border border-[#ffffff] rounded-md py-3 px-4 text-base text-white`, { fontFamily: "Nunito_Regular" }]}
         />
